@@ -1,0 +1,141 @@
+body {
+    background-color: #979DAC;
+}
+
+.main {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 485px;
+    min-width: 350px;
+}
+
+.login-box {
+    max-width: 380px;
+    border: 1px solid #001233;
+    background-color: white;
+    border-radius: 15px;
+    padding: 12px 20px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), 10px 10px #001233;
+    margin: 0;
+    position: absolute;
+}
+
+.logo {
+    color: #0466C8;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    font-size: 50px;
+    text-align: center;
+}
+
+h1, p {
+    text-align: center;
+    color: #0466C8;
+    padding: 0px 0px;
+    margin: 5px 5px;
+}
+
+
+input:not([type=submit]) {
+    width: 100%;
+    background-color: #E5E5E5;
+    padding: 10px 45px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input[type=submit] {
+    width: 100%;
+    transition: background-color 0.5s ease;
+    background-color: #0466C8;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: 1px solid #0466C8;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type=submit]:hover {
+    background-color: white;
+    color: #0466C8;
+    border: 1px solid #0466C8;
+}
+
+a {
+    color: #000000;
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: small;
+}
+
+.recover-password {
+
+    margin-top: 0px;
+}
+
+input[class="register-acc"] {
+    background-color: white;
+    border: 1px solid #0466C8;
+    border-radius: 0px;
+    color: #0466C8;
+    margin-top: 15px;
+}
+
+
+input[class="register-acc"]:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.input-icons i {
+    position: absolute;
+}
+
+.user-icon {
+    position: relative;
+}
+
+.user-icon i {
+    position: absolute;
+    left: 19px;
+    top: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.pass-icon {
+    position: relative;
+}
+
+.pass-icon i {
+    position: absolute;
+    left: 19px;
+    top: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (max-width: 600px) {
+    .login-box {
+        max-width: 380px;
+        border: none;
+        border-radius: 0;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+
+    }
+
+    input:not([type="submit"]) {
+        background-color: white;
+        border: none;
+        border-bottom: 1px solid black;
+        border-radius: 0px;
+    }
+}

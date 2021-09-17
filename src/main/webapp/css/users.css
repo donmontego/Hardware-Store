@@ -1,0 +1,120 @@
+body {
+    background-color: #979dac;
+    font-family: "Roboto";
+}
+
+.main-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    min-height: 450px;
+    min-width: 350px;
+}
+.form-box {
+    width: 80%;
+    max-width: 800px;
+    border: none;
+    background-color: white;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+    margin-right: auto;
+    position: absolute;
+    margin-top: 10px;
+}
+
+form {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+.form-info {
+    padding: 15px;
+    position: relative;
+    display: grid;
+    row-gap: 20px;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 0.7fr 1fr 0.5fr 1fr;
+    margin: 10px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    font-size: medium;
+    margin: 0;
+}
+
+input {
+    width: 80%;
+    margin: 0;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 0;
+    transform: translate(-7px, -4px);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield !important;
+}
+
+.form-buttons {
+    /* grid-row: 1/5; */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-right: 0;
+    margin-top: 5px;
+    background-color: #0466c8;
+    border: none;
+}
+
+button {
+    font-size: 15px;
+    transition: background-color 0.5s ease;
+    background-color: #0466c8;
+    width: 95px;
+    color: white;
+    align-self: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 10px;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+    font-style: bold;
+}
+
+@media only screen and (max-width: 600px) {
+    .main-container{
+        min-height: 750px;
+    }
+
+    .form-info {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    input {
+        width: 100%;
+    }
+    .form-buttons {
+        flex-direction: column;
+    }
+    button {
+        width: 100%;
+    }
+}
