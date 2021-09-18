@@ -9,6 +9,7 @@ public class Conexion {
     private final String URL = "jdbc:mysql://localhost:3306/"+ BD;
     private final String USER = "root";
     private final String PASS = "";
+
     Connection con = null;
 
     public Connection connect(){

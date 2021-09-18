@@ -27,6 +27,13 @@
     <link href="css/users.css" rel="stylesheet"/>
 </head>
 <body>
+<%
+   if (request.getParameter("msg")!=null){
+       String msg = request.getParameter("msg");
+       out.print("<script type='text/javascript'>alert('"+msg+"')</script>");
+   }
+%>
+
 <%--<header>--%>
 <%--    <div class="main-nav">--%>
 <%--        <div class="top-bar">--%>
@@ -51,12 +58,12 @@
 <div class="main-container">
     <div class="form-box">
         <p>Gestion de Usuarios</p>
-        <form>
+        <form action="Usuarios" method="post">
             <div class="form-info">
                 <label for="cedula">Cédula</label>
                 <input type="number" id="cedula" name="cedula" value=""/>
-                <label for="usuario">Usuario</label>
-                <input type="text" id="usuario" name="usuario" value=""/>
+                <label for="user">Usuario</label>
+                <input type="text" id="user" name="user" value=""/>
                 <label for="name">Nombre Completo</label>
                 <input type="text" id="name" name="name" value=""/>
                 <label for="password">Contraseña</label>
@@ -66,7 +73,7 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Consultar</button>
-                <button type="submit">Crear</button>
+                <button type="submit" name="create">Crear</button>
                 <button type="submit">Actualizar</button>
                 <button type="submit">Borrar</button>
             </div>
