@@ -6,6 +6,9 @@ body{
     font-weight: 700;
 }
 
+header{
+    font-family: "Ubuntu", sans-serif;
+}
 .main-nav{
     margin:0;
     padding:0;
@@ -60,6 +63,8 @@ ul{
     left: 0;
     width: 100%;
     background-color:#33415C;
+    display: flex;
+    flex-basis: 1 1 0px;
 
 }
 
@@ -74,14 +79,34 @@ li a{
     text-align: center;
     padding: 14px;
     text-decoration: none;
+    position: relative;
 }
-li:hover {
-    background-color: rgba(0,0,0,0.3);
+/* li:hover { */
+/*   background-color: rgba(0,0,0,0.3); */
+/* } */
+
+li a::before{
+    content: '';
+    display: block;
+    height: 4px;
+    background: #0466C8;
+    border-radius: 2px;
+    position: absolute;
+    bottom: 0.3em;
+    left: 0;
+    right: 0;
+    /* left: 15%; */
+    /* right: 15%; */
+    transform: scale(0, 1);
+    transition: transform ease-in-out 300ms;
+}
+
+li a:hover::before{
+    transform: scale(1,1);
 }
 
 .selected{
-    background-color:#0466C8;
-
+    background-color: #0466C8;
 }
 
 @media only screen and (max-width: 600px) {
@@ -107,5 +132,11 @@ li:hover {
     .dropdown:hover .dropdown-button{
         background-color: white;
         color:black;
+    }
+    li a::before{
+        display: none;
+    }
+    li:hover {
+        background-color: rgba(0,0,0,0.3);
     }
 }
