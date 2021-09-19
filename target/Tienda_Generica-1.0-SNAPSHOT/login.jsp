@@ -31,8 +31,8 @@
 <header>
     <div class="main-nav">
         <div class="top-bar">
-            <span class="store-name">Tienda Genérica</span>
-            <span class="exit"><a href="#">Salir</a></span>
+            <span class="store-name">Hardware Store</span>
+            <span class="exit"><a href="index.jsp">Salir</a></span>
         </div>
     </div>
 </header>

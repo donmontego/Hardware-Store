@@ -23,10 +23,10 @@
         </div>
         <div class="dropdown">
             <button class="dropdown-button">Menú</button>
-            <ul>
+            <ul class="nav-bar">
                 <li class="selected"><a href="../users.jsp">Usuarios</a></li>
                 <li><a href="../clients.jsp" onclick="dynamicNavbar();">Clientes</a></li>
-                <li><a href="" onclick="dynamicNavbar();">Proveedores</a></li>
+                <li><a href="../providers.jsp" onclick="dynamicNavbar();">Proveedores</a></li>
                 <li><a href="" onclick="dynamicNavbar();">Productos</a></li>
                 <li><a href="" onclick="dynamicNavbar();">Ventas</a></li>
                 <li><a href="" onclick="dynamicNavbar();">Reportes</a></li>
@@ -34,11 +34,10 @@
         </div>
     </div>
 </header>
-<script type="text/javascript">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
     function dynamicNavbar() {
-            $('.main-nav .dropdown').find('a.selected').removeClass('selected');
-            $(this).addClass('selected');
-
+        $('.main-nav .dropdown').find('li.selected').removeClass('selected');
+        $(this).addClass('selected');
     }
 </script>
 </body>
