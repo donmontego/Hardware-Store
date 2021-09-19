@@ -28,9 +28,7 @@ public class Usuarios extends HttpServlet {
             UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, password, name, email);
             if (usuariosDAO.insertUser(usuariosDTO)) {
                 response.sendRedirect("users.jsp?msg=Usuario agregado");
-            } else {
-                response.sendRedirect("users.jsp?msg=Error al agregar");
-            }
+            } else response.sendRedirect("users.jsp?msg=Error al agregar");
         }
 
     }
