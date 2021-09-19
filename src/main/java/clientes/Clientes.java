@@ -17,15 +17,15 @@ public class Clientes extends HttpServlet {
         ClientesDAO clientsDAO = new ClientesDAO();
 
         if (request.getParameter("create") != null) {
-            int idC, telephono;
-            String adress, email,name;
-            idC = Integer.parseInt(request.getParameter("cedula"));
-            adress = request.getParameter("user");
-            email = request.getParameter("name");
-            name = request.getParameter("password");
-            telephono = Integer.parseInt(request.getParameter("telefono"));
+            int cedula;
+            String address, email,name,phone;
+            cedula = Integer.parseInt(request.getParameter("cedula"));
+            address = request.getParameter("address");
+            email = request.getParameter("email");
+            name = request.getParameter("name");
+            phone = request.getParameter("phone");
 
-            ClientesDTO clientsDTO = new ClientesDTO(idC, adress, email, name, telephono);
+            ClientesDTO clientsDTO = new ClientesDTO(cedula, address, email, name, phone);
             if (clientsDAO.insertUser(clientsDTO)) {
                 response.sendRedirect("users.jsp?msg=Cliente agregado");
             } else {

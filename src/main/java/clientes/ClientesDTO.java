@@ -1,29 +1,29 @@
 package clientes;
 
 public class ClientesDTO {
-    private int idC;
+    private int cedula;
     private String adress;
     private String email;
     private String name;
-    private int telephono;
+    private String phone;
 
     public ClientesDTO() {
     }
 
-    public ClientesDTO(int cedula, String direction, String email, String name, int telefono) {
-        this.idC = cedula;
-        this.adress = direction;
+    public ClientesDTO(int cedula, String address, String email, String name, String phone) {
+        this.cedula = cedula;
+        this.adress = address;
         this.email = email;
         this.name = name;
-        this.telephono = telefono;
+        this.phone = phone;
     }
 
-    public int getIdC() {
-        return idC;
+    public int getCedula() {
+        return cedula;
     }
 
-    public void setIdC(int idC) {
-        this.idC = idC;
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
     }
 
     public String getAdress() {
@@ -50,11 +50,11 @@ public class ClientesDTO {
         this.name = name;
     }
 
-    public int getTelephono() {
-        return telephono;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelephono(int telephono) {
-        this.telephono = telephono;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

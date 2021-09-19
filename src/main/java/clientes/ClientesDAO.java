@@ -17,11 +17,11 @@ public class ClientesDAO {
         try{
             String query = "insert into clientes values(?,?,?,?,?)";
             statement = con.prepareStatement(query);
-            statement.setInt(1,clients.getIdC());
+            statement.setInt(1,clients.getCedula());
             statement.setString(2, clients.getAdress());
             statement.setString(3, clients.getEmail());
             statement.setString(4, clients.getName());
-            statement.setInt(5, clients.getTelephono());
+            statement.setString(5, clients.getPhone());
             result = statement.executeUpdate() > 0;
 
         }catch(SQLException e){

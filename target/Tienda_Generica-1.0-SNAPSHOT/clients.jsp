@@ -30,7 +30,7 @@
 <div class="main-container">
     <div class="form-box">
         <p>Gestion de Clientes</p>
-        <form>
+        <form action="/Clientes" method="post">
             <div class="form-info">
                 <label for="cedula">Cédula</label>
                 <input type="number" id="cedula" name="cedula" value=""/>
@@ -45,7 +45,7 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Consultar</button>
-                <button type="submit">Crear</button>
+                <button type="submit" name="create">Crear</button>
                 <button type="submit">Actualizar</button>
                 <button type="submit">Borrar</button>
             </div>
