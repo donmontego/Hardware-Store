@@ -27,11 +27,28 @@
     <link href="css/users.css" rel="stylesheet"/>
 </head>
 <body>
+<%!
+    int cedula;
+    String email = "", name = "", password = "", user = "";
+%>
 <%
-   if (request.getParameter("msg")!=null){
-       String msg = request.getParameter("msg");
-       out.print("<script type='text/javascript'>alert('"+msg+"')</script>");
-   }
+    if (request.getParameter("cedula") != null){
+        cedula = Integer.parseInt(request.getParameter("cedula"));
+        email = request.getParameter("email");
+        name = request.getParameter("name");
+        password = request.getParameter("password");
+        user = request.getParameter("user");
+
+    }
+    if (request.getParameter("msg") != null){
+        cedula = 0;
+        email ="";
+        name = "";
+        password = "";
+        user = "";
+        String msg = request.getParameter("msg");
+        out.print("<script type='text/javascript'?>alert('"+msg+"')</script");
+    }
 %>
 
 <%--<header>--%>
@@ -61,21 +78,21 @@
         <form action="Usuarios" method="post">
             <div class="form-info">
                 <label for="cedula">Cédula</label>
-                <input type="number" id="cedula" name="cedula" value=""/>
-                <label for="user">Usuario</label>
-                <input type="text" id="user" name="user" value=""/>
-                <label for="name">Nombre Completo</label>
-                <input type="text" id="name" name="name" value=""/>
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" value=""/>
+                <input type="number" id="cedula" name="cedula" value="<%=cedula%>"/>
                 <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" value=""/>
+                <input type="email" id="email" name="email" value="<%=email%>"/>
+                <label for="name">Nombre Completo</label>
+                <input type="text" id="name" name="name" value="<%=name%>"/>
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" value="<%=password%>"/>
+                <label for="user">Usuario</label>
+                <input type="text" id="user" name="user" value="<%=user%>"/>
             </div>
             <div class="form-buttons">
-                <button type="submit">Consultar</button>
+                <button type="submit" name="search">Consultar</button>
                 <button type="submit" name="create">Crear</button>
-                <button type="submit">Actualizar</button>
-                <button type="submit">Borrar</button>
+                <button type="submit" name="update">Actualizar</button>
+                <button type="submit" name="delete">Borrar</button>
             </div>
         </form>
     </div>

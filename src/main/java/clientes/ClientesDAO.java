@@ -39,9 +39,11 @@ public class ClientesDAO {
             statement.setInt(1,cedula);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                cliente = new ClientesDTO(Integer.parseInt(resultSet.getString(1)),resultSet.getString(2),
-                        resultSet.getString(3),resultSet.getString(4), resultSet.getString(5));
-
+                cliente = new ClientesDTO(Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5));
             }
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error"+e);
@@ -81,5 +83,4 @@ public class ClientesDAO {
         }
         return result;
     }
-
 }

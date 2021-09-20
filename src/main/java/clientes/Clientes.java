@@ -64,7 +64,7 @@ public class Clientes extends HttpServlet {
             if (clientsDAO.updateClient(clientsDTO)) {
                 response.sendRedirect("clients.jsp?msg=Cliente modificado");
             } else {
-                response.sendRedirect("clients.jsp?msg=Error al modificado");
+                response.sendRedirect("clients.jsp?msg=Error al modificar");
             }
 
         }
