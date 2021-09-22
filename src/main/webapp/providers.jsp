@@ -16,26 +16,26 @@
             rel="stylesheet"
             type="text/css"
     />
-    <!-- <link rel="stylesheet" type="" -->
-    <!-- href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link
             rel="stylesheet"
             type=""
             href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     />
-<%--    <link href="css/navbar.css" rel="stylesheet"/>--%>
-    <link href="css/users.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
 </head>
 <body>
 <%!
     int nit;
-    String name ="",
-    address = "",
-    phone = "",
-    city = "";
+        String name = ""
+                ,
+                address = ""
+                ,
+                phone = ""
+                ,
+                city = "";
 %>
 <%
-    if(request.getParameter("nit")!=null){
+    if (request.getParameter("nit") != null) {
         nit = Integer.parseInt(request.getParameter("nit"));
         name = request.getParameter("name");
         address = request.getParameter("address");
@@ -43,17 +43,16 @@
         city = request.getParameter("city");
     }
 
-   if (request.getParameter("msg")!=null){
-       nit = 0;
-       name ="";
-       address = "";
-       phone ="";
-       city = "";
-       String msg = request.getParameter("msg");
-       out.print("<script type='text/javascript'>alert('"+msg+"')</script>");
-   }
+    if (request.getParameter("msg") != null) {
+        nit = 0;
+        name = "";
+        address = "";
+        phone = "";
+        city = "";
+        String msg = request.getParameter("msg");
+        out.print("<script type='text/javascript'>alert('" + msg + "')</script>");
+    }
 %>
-
 <jsp:include page="partials/navbar.jsp"/>
 <div class="main-container">
     <div class="form-box">
@@ -83,10 +82,7 @@
             class="img-container"
             style="background-image: url('images/providers.jpg')"
     >
-        <!-- <img src="images/users.jpg" alt="" /> -->
     </div>
 </div>
-<!-- Code injected by live-server -->
-
 </body>
 </html>
