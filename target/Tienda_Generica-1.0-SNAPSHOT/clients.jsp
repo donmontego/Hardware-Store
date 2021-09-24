@@ -16,14 +16,12 @@
             rel="stylesheet"
             type="text/css"
     />
-    <!-- <link rel="stylesheet" type="" -->
-    <!-- href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link
             rel="stylesheet"
             type=""
             href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     />
-    <link href="css/users.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
 </head>
 <body>
 <%!
@@ -78,7 +76,6 @@
             class="img-container"
             style="background-image: url('images/clients.jpg')"
     >
-        <!-- <img src="images/users.jpg" alt="" /> -->
     </div>
 </div>
 </body>
