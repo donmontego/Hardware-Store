@@ -17,10 +17,12 @@ public class Proveedores extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProveedoresDAO proveedoresDAO = new ProveedoresDAO();
 
+        String nit = "", name = "", address = "", phone = "", city = "";
+
         if (request.getParameter("create") != null) {
-            int nit;
-            String name, address, phone, city;
-            nit = Integer.parseInt(request.getParameter("nit"));
+
+
+            nit = request.getParameter("nit");
             name = request.getParameter("name");
             address = request.getParameter("address");
             phone = request.getParameter("phone");
@@ -35,9 +37,9 @@ public class Proveedores extends HttpServlet {
         }
 
         if (request.getParameter("search") != null) {
-            int nit;
-            String name, address, phone, city;
-            nit = Integer.parseInt(request.getParameter("nit"));
+
+
+            nit = request.getParameter("nit");
             ProveedoresDTO proveedor = proveedoresDAO.searchProveedor(nit);
 
             if (proveedor != null) {
@@ -53,9 +55,9 @@ public class Proveedores extends HttpServlet {
         }
 
         if (request.getParameter("update") != null) {
-            int nit;
-            String name, address, phone, city;
-            nit = Integer.parseInt(request.getParameter("nit"));
+
+
+            nit = request.getParameter("nit");
             name = request.getParameter("name");
             address = request.getParameter("address");
             phone = request.getParameter("phone");
@@ -70,8 +72,8 @@ public class Proveedores extends HttpServlet {
         }
 
         if (request.getParameter("delete") != null) {
-            int nit;
-            nit = Integer.parseInt(request.getParameter("nit"));
+
+            nit = request.getParameter("nit");
             int accept = JOptionPane.showConfirmDialog(null, "¿Eliminar proveedor con NIT: ?" + nit);
             if (accept == 0) {
                 if (proveedoresDAO.deleteProvider(nit)) {

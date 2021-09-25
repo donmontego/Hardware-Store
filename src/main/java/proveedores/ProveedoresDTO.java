@@ -1,7 +1,7 @@
 package proveedores;
 
 public class ProveedoresDTO {
-    private int nit;
+    private String nit;
     private String name;
     private String address;
     private String phone;
@@ -10,7 +10,7 @@ public class ProveedoresDTO {
     public ProveedoresDTO() {
     }
 
-    public ProveedoresDTO(int nit, String name, String address, String phone, String city) {
+    public ProveedoresDTO(String nit, String name, String address, String phone, String city) {
         this.nit = nit;
         this.name = name;
         this.address = address;
@@ -18,11 +18,11 @@ public class ProveedoresDTO {
         this.city = city;
     }
 
-    public int getNit() {
+    public String getNit() {
         return nit;
     }
 
-    public void setNit(int nit) {
+    public void setNit(String nit) {
         this.nit = nit;
     }
 
