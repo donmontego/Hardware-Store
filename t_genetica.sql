@@ -29,7 +29,7 @@ foreign key (cedula_usuario) references Usuarios (cedula_usuario)
 );
 
 create table Proveedores(
-nitproveedor bigint(20) primary key,
+nitproveedor varchar(255) primary key,
 ciudad_proveedor varchar(255),
 direccion_proveedor varchar(255),
 nombre_proveedor varchar (255),
@@ -39,7 +39,7 @@ telefono_proveedor varchar(255)
 create table Productos(
 codigo_producto bigint(20) primary key,
 ivacompra double,
-nitproveedor bigint(20),
+nitproveedor varchar(255),
 nombre_producto varchar(255),
 precio_compra double,
 precio_venta double,
