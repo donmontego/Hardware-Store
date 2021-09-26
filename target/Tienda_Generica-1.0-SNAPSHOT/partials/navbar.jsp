@@ -44,6 +44,15 @@
         productsTab = "";
         salesTab = "";
         reportsTab = "";
+
+    } else if (request.getRequestURL().toString().contains("products.jsp")){
+        usersTab = "";
+        clientsTab = "";
+        providersTab = "";
+        productsTab = "selected";
+        salesTab = "";
+        reportsTab = "";
+
     }else{
         usersTab = "";
         clientsTab = "";
@@ -66,7 +75,7 @@
                 <li class="<%=usersTab%>"><a href="../users.jsp">Usuarios</a></li>
                 <li class="<%=clientsTab%>"><a href="../clients.jsp">Clientes</a></li>
                 <li class="<%=providersTab%>"><a href="../providers.jsp">Proveedores</a></li>
-                <li><a href="">Productos</a></li>
+                <li class="<%=productsTab%>"><a href="../products.jsp">Productos</a></li>
                 <li><a href="">Ventas</a></li>
                 <li><a href="">Reportes</a></li>
             </ul>

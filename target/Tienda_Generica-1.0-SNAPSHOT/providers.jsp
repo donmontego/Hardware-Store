@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: User
-  Date: 9/12/2021
-  Time: 5:39 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -25,18 +18,20 @@
 </head>
 <body>
 <%!
-    int nit;
-        String name = ""
+        String  name = ""
                 ,
                 address = ""
                 ,
                 phone = ""
                 ,
-                city = "";
+                city = ""
+                ,
+                nit = "";
+
 %>
 <%
     if (request.getParameter("nit") != null) {
-        nit = Integer.parseInt(request.getParameter("nit"));
+        nit = request.getParameter("nit");
         name = request.getParameter("name");
         address = request.getParameter("address");
         phone = request.getParameter("phone");
@@ -44,7 +39,7 @@
     }
 
     if (request.getParameter("msg") != null) {
-        nit = 0;
+        nit = "";
         name = "";
         address = "";
         phone = "";
@@ -60,7 +55,7 @@
         <form action="Proveedores" method="post">
             <div class="form-info">
                 <label for="nit">NIT</label>
-                <input type="number" id="nit" name="nit" value="<%=nit%>"/>
+                <input type="text" id="nit" name="nit" value="<%=nit%>"/>
                 <label for="name">Nombre Proveedor</label>
                 <input type="text" id="name" name="name" value="<%=name%>"/>
                 <label for="address">Dirección</label>
