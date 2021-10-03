@@ -24,6 +24,9 @@ public class Menu extends SessionChecker {
         if (request.getParameter("products")!=null){
             request.getRequestDispatcher("WEB-INF/views/products.jsp").forward(request, response);
         }
+        if (request.getParameter("sales")!=null){
+            request.getRequestDispatcher("WEB-INF/views/sales.jsp").forward(request, response);
+        }
     }
 
     @Override

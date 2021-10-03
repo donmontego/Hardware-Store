@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ClientesDAO {
     Conexion conexion = new Conexion();
@@ -14,46 +15,47 @@ public class ClientesDAO {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
 
-    public boolean insertclient(ClientesDTO clients){
+    public boolean insertclient(ClientesDTO clients) {
         boolean result = false;
-        try{
+        try {
             String query = "insert into Clientes values(?,?,?,?,?)";
             statement = con.prepareStatement(query);
-            statement.setInt(1,clients.getCedula());
+            statement.setInt(1, clients.getCedula());
             statement.setString(2, clients.getAdress());
             statement.setString(3, clients.getEmail());
             statement.setString(4, clients.getName());
             statement.setString(5, clients.getPhone());
             result = statement.executeUpdate() > 0;
 
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Error"+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
         return result;
     }
+
     public ClientesDTO searchCliente(int cedula) {
         ClientesDTO cliente = null;
         try {
             String query = "select * from Clientes where cedula_cliente=?";
             statement = con.prepareStatement(query);
-            statement.setInt(1,cedula);
+            statement.setInt(1, cedula);
             resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 cliente = new ClientesDTO(Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5));
             }
-        }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error"+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
         return cliente;
     }
 
     public boolean updateClient(ClientesDTO clientsDTO) {
         boolean result = false;
-        try{
+        try {
             String query = "update Clientes set direcion_cliente=?, email_cliente=?, nombre_cliente=?," +
                     "telefono_clientes=? where cedula_cliente=?";
             statement = con.prepareStatement(query);
@@ -61,11 +63,11 @@ public class ClientesDAO {
             statement.setString(2, clientsDTO.getEmail());
             statement.setString(3, clientsDTO.getName());
             statement.setString(4, clientsDTO.getPhone());
-            statement.setInt(5,clientsDTO.getCedula());
+            statement.setInt(5, clientsDTO.getCedula());
             result = statement.executeUpdate() > 0;
 
-        }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error"+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
         return result;
     }
@@ -73,14 +75,34 @@ public class ClientesDAO {
 
     public boolean deleteclient(int cedula) {
         boolean result = false;
-        try{
+        try {
             String query = "delete FROM Clientes WHERE cedula_cliente=?";
-            statement= con.prepareStatement(query);
+            statement = con.prepareStatement(query);
             statement.setInt(1, cedula);
             result = statement.executeUpdate() > 0;
-        }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error"+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
         return result;
+    }
+
+    public ArrayList<ClientesDTO> cargarClientes() {
+        ClientesDTO clienteC = null;
+        ArrayList<ClientesDTO> listaClientes = new ArrayList<>();
+
+        try {
+            String query = "select cedula_cliente,nombre_cliente from Clientes ";
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                clienteC = new ClientesDTO();
+                clienteC.setCedula(Integer.parseInt(resultSet.getString(1)));
+                clienteC.setName(resultSet.getString(2));
+                listaClientes.add(clienteC);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar clientes" + e);
+        }
+        return listaClientes;
     }
 }
