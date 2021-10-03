@@ -1,5 +1,8 @@
 package usuarios;
 
+import utils.PasswordCrypto;
+import utils.SessionChecker;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -7,7 +10,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 @WebServlet(name = "Usuarios", value = "/Usuarios")
-public class Usuarios extends HttpServlet {
+public class Usuarios extends SessionChecker {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -15,58 +18,65 @@ public class Usuarios extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        validate(request,response);
+
         UsuariosDAO usuariosDAO = new UsuariosDAO();
 
         if (request.getParameter("create") != null) {
             int cedula;
-            String user, name, password, email;
+            String user, name, password, email, hashedPassword;
             cedula = Integer.parseInt(request.getParameter("cedula"));
             user = request.getParameter("user");
             name = request.getParameter("name");
             password = request.getParameter("password");
             email = request.getParameter("email");
+            hashedPassword = PasswordCrypto.hashPassword(password);
 
-            UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, password, name, email);
+
+            UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, hashedPassword, name, email);
             if (usuariosDAO.insertUser(usuariosDTO)) {
-                response.sendRedirect("users.jsp?msg=Usuario agregado");
+                request.setAttribute("RESULT","success-msg");
+                request.setAttribute("MESSAGE","Usuario agregado con éxito.");
             } else{
-                response.sendRedirect("users.jsp?msg=Error al agregar");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Error al crear el usuario.");
             }
+            request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
         }
 
         if (request.getParameter("search")!=null) {
             int cedula;
-            String email, name, password, user;
             cedula = Integer.parseInt(request.getParameter("cedula"));
             UsuariosDTO usuario = usuariosDAO.searchUser(cedula);
             if (usuario != null) {
-                cedula = usuario.getCedula();
-                email = usuario.getEmail();
-                name = usuario.getName();
-                password = usuario.getPassword();
-                user = usuario.getUser();
-                response.sendRedirect("users.jsp?cedula=" + cedula +
-                        "&&email=" + email + "&&name=" + name + "&&password=" + password + "&&user=" + user);
+                request.setAttribute("USER",usuario);
+
             } else {
-                response.sendRedirect("users.jsp?msg= Usuario no encontrado");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Usuario no encontrado");
             }
+            request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
 
         }
         if (request.getParameter("update") !=null){
             int cedula;
-            String email, name,password,user;
+            String email, name,password,user, hashedPassword;
             cedula = Integer.parseInt(request.getParameter("cedula"));
             email = request.getParameter("email");
             name = request.getParameter("name");
             password = request.getParameter("password");
             user = request.getParameter("user");
+            hashedPassword = PasswordCrypto.hashPassword(password);
 
-            UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, password, name, email);
+            UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, hashedPassword, name, email);
             if (usuariosDAO.updateUser(usuariosDTO)) {
-                response.sendRedirect("users.jsp?msg=Usuario modificado");
+                request.setAttribute("RESULT","success-msg");
+                request.setAttribute("MESSAGE","Usuario modificado con éxito.");
             } else {
-                response.sendRedirect("users.jsp?msg=Error al modificar");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Error al modificar el usuario.");
             }
+            request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
 
         }
         if (request.getParameter("delete")!=null){
@@ -75,14 +85,14 @@ public class Usuarios extends HttpServlet {
             int accept = JOptionPane.showInternalConfirmDialog(null,"¿Eliminar cliente con cedula: ?"+cedula);
             if (accept == 0){
                 if (usuariosDAO.deleteUser(cedula)){
-                    response.sendRedirect("users.jsp?msg=Usuario eliminado");
+                    request.setAttribute("RESULT","success-msg");
+                    request.setAttribute("MESSAGE","Usuario eliminado.");
                 } else {
-                    response.sendRedirect("users.jsp?msg=Error al eliminar");
+                    request.setAttribute("RESULT","error-msg");
+                    request.setAttribute("MESSAGE","Error al eliminar el usuario.");
                 }
-            }else {
-                response.sendRedirect("clients.jsp");
             }
+            request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
         }
-
     }
 }

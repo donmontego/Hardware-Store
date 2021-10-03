@@ -1,5 +1,7 @@
 package proveedores;
 
+import utils.SessionChecker;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -7,7 +9,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 @WebServlet(name = "Proveedores", value = "/Proveedores")
-public class Proveedores extends HttpServlet {
+public class Proveedores extends SessionChecker {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -15,6 +17,7 @@ public class Proveedores extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        validate(request, response);
         ProveedoresDAO proveedoresDAO = new ProveedoresDAO();
 
         String nit = "", name = "", address = "", phone = "", city = "";
@@ -30,32 +33,30 @@ public class Proveedores extends HttpServlet {
 
             ProveedoresDTO proveedor = new ProveedoresDTO(nit, name, address, phone, city);
             if (proveedoresDAO.insertProvider(proveedor)) {
-                response.sendRedirect("providers.jsp?msg=Proveedor Agregado");
+                request.setAttribute("RESULT","success-msg");
+                request.setAttribute("MESSAGE","Proveedor agregado con éxito.");
             } else {
-                response.sendRedirect("providers.jsp?msg=Error al agregar proveedor");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Error al crear el proveedor.");
             }
+            request.getRequestDispatcher("WEB-INF/views/providers.jsp").forward(request, response);
         }
 
         if (request.getParameter("search") != null) {
-
 
             nit = request.getParameter("nit");
             ProveedoresDTO proveedor = proveedoresDAO.searchProveedor(nit);
 
             if (proveedor != null) {
-                nit = proveedor.getNit();
-                name = proveedor.getName();
-                address = proveedor.getAddress();
-                phone = proveedor.getPhone();
-                city = proveedor.getCity();
-                response.sendRedirect("providers.jsp?nit=" + nit + "&&name=" + name + "&&address=" + address + "&&phone=" + phone + "&&city=" + city);
+                request.setAttribute("PROVIDER",proveedor);
             } else {
-                response.sendRedirect("providers.jsp?msg=Proveedor no encontrado");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Proveedor no encontrado.");
             }
+            request.getRequestDispatcher("WEB-INF/views/providers.jsp").forward(request, response);
         }
 
         if (request.getParameter("update") != null) {
-
 
             nit = request.getParameter("nit");
             name = request.getParameter("name");
@@ -65,10 +66,13 @@ public class Proveedores extends HttpServlet {
 
             ProveedoresDTO proveedor = new ProveedoresDTO(nit, name, address, phone, city);
             if (proveedoresDAO.updateProvider(proveedor)) {
-                response.sendRedirect("providers.jsp?msg=Proveedor modificado");
+                request.setAttribute("RESULT","success-msg");
+                request.setAttribute("MESSAGE","Proveedor modificado con éxito.");
             } else {
-                response.sendRedirect("providers.jsp?msg=Error al modificar el proveedor");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Error al modificar el proveedor.");
             }
+            request.getRequestDispatcher("WEB-INF/views/providers.jsp").forward(request,response);
         }
 
         if (request.getParameter("delete") != null) {
@@ -77,13 +81,14 @@ public class Proveedores extends HttpServlet {
             int accept = JOptionPane.showConfirmDialog(null, "¿Eliminar proveedor con NIT: ?" + nit);
             if (accept == 0) {
                 if (proveedoresDAO.deleteProvider(nit)) {
-                    response.sendRedirect("providers.jsp?msg=Proveedor eliminado");
+                    request.setAttribute("RESULT","success-msg");
+                    request.setAttribute("MESSAGE","Proveedor eliminado.");
                 } else {
-                    response.sendRedirect("providers.jsp?msg=Error al eliminar el proveedor");
+                    request.setAttribute("RESULT","error-msg");
+                    request.setAttribute("MESSAGE","Error al eliminar el proveedor.");
                 }
-            } else {
-                response.sendRedirect("providers.jsp");
             }
+            request.getRequestDispatcher("WEB-INF/views/providers.jsp").forward(request, response);
         }
     }
 }

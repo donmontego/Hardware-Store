@@ -1,5 +1,7 @@
 package productos;
 
+import utils.SessionChecker;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -11,7 +13,7 @@ import java.io.InputStream;
 
 @WebServlet(name = "Productos", value = "/Productos")
 @MultipartConfig
-public class Productos extends HttpServlet {
+public class Productos extends SessionChecker {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,31 +30,24 @@ public class Productos extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        validate(request,response);
 
         ProductosDAO productosDAO = new ProductosDAO();
 
         if (request.getParameter("search")!=null) {
             int codigo_producto;
-            double iva_compra, precio_compra, precio_venta;
-            String nit_proveedor, nombre_producto;
 
             codigo_producto = Integer.parseInt(request.getParameter("codigo_producto"));
             ProductosDTO productos = productosDAO.searchProducto(codigo_producto);
 
             if (productos!= null) {
-                codigo_producto = productos.getCodigo_producto();
-                iva_compra = productos.getIva_compra();
-                nit_proveedor = productos.getNit_proveedor();
-                nombre_producto = productos.getNombre_producto();
-                precio_compra = productos.getPrecio_compra();
-                precio_venta = productos.getPrecio_venta();
-                response.sendRedirect("products.jsp?codigo_producto="+codigo_producto+"&&iva_compra="+iva_compra+
-                        "&&nit_proveedor="+nit_proveedor+"&&nombre_producto="+nombre_producto+
-                        "&&precio_compra="+precio_compra+"&&precio_venta="+precio_venta);
+                request.setAttribute("PRODUCT",productos);
 
             }else {
-                response.sendRedirect("products.jsp?msg=Producto no encontrado");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Producto no encontrado.");
             }
+            request.getRequestDispatcher("WEB-INF/views/products.jsp").forward(request, response);
         }
 
         if (request.getParameter("update")!=null) {
@@ -71,18 +66,20 @@ public class Productos extends HttpServlet {
             productos.setNombre_producto(nombre_producto);
 
             if (productosDAO.updateProducto(productos)) {
-                response.sendRedirect("products.jsp?msg=Producto modificado");
+                request.setAttribute("RESULT","success-msg");
+                request.setAttribute("MESSAGE","Producto modificado con éxito.");
 
             }else {
-                response.sendRedirect("products.jsp?msg=error al modificar el producto");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Error al modificar el producto.");
             }
+            request.getRequestDispatcher("WEB-INF/views/products.jsp").forward(request, response);
 
         }
 
         if (request.getParameter("upload")!=null) {
             Part archivo = request.getPart("archivo");
             String URL = "D:/Programacion Web/Proyecto Ciclo 3/Hardware-Store/src/main/webapp/documents/";
-            //String URL = "../../webapp/documents"; Investigacion
 
             if(archivo.getContentType().equals("application/vnd.ms-excel")) {
                 try {
@@ -98,23 +95,32 @@ public class Productos extends HttpServlet {
                     escribir.close();
                     JOptionPane.showMessageDialog(null, "Se cargo el archivo correctamente");
                     if(productosDAO.uploadProducto(URL + "productos.csv")) {
-                        response.sendRedirect("products.jsp?men=Registro de productos exitoso");
+
+//                        response.sendRedirect("products.jsp?men=Registro de productos exitoso");
+                        request.setAttribute("RESULT","success-msg");
+                        request.setAttribute("MESSAGE","Registor de productos exitoso.");
                     }else
                     {
-                        response.sendRedirect("products.jsp?men=Carga fallida de archivo, por falla en nombre");
+//                        response.sendRedirect("products.jsp?men=Carga fallida de archivo, por falla en nombre");
+                        request.setAttribute("RESULT","error-msg");
+                        request.setAttribute("MESSAGE","Carga no exitosa por nombre de archivo incorrecto.");
                     }
+                    request.getRequestDispatcher("WEB-INF/views/products.jsp").forward(request, response);
                 }catch(Exception e) {
-                    JOptionPane.showMessageDialog(null, "Carga fallida de archivo por error de" +
-                            " formato: "+e);
-                    response.sendRedirect("products.jsp?men=Carga fallida de archivo por error de validacion: ");
-
+//                    JOptionPane.showMessageDialog(null, "Carga fallida de archivo por error de" +
+//                            " formato: "+e);
+//                    response.sendRedirect("products.jsp?men=Carga fallida de archivo por error de validacion: ");
+                    request.setAttribute("RESULT","error-msg");
+                    request.setAttribute("MESSAGE","Error al validar el archivo."+e);
+                    request.getRequestDispatcher("WEB-INF/views/products.jsp").forward(request, response);
                 }
             }else
             {
-                response.sendRedirect("products.jsp?men=Formato de Archivo no permitido");
+//                response.sendRedirect("products.jsp?men=Formato de Archivo no permitido");
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Formato de archivo no permitido.");
+                request.getRequestDispatcher("WEB-INF/views/products.jsp").forward(request, response);
             }
-
-
         }
     }
 }

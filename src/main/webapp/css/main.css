@@ -33,7 +33,18 @@ body {
     text-align: center;
     text-shadow: rgb(1, 1, 0.3);
 }
-
+.form-box .success-msg{
+    font-size: 15px;
+    color: green !important;
+    text-align: left;
+    display: block;
+}
+.form-box .error-msg {
+    font-size: 15px;
+    color: red !important;
+    text-align: left;
+    display: block;
+}
 .img-container{
     /* width: 50%; */
     background-color: #0466c8;
@@ -116,6 +127,7 @@ button:hover {
     background-color: white;
     color: black;
 }
+
 
 @media only screen and (max-width: 600px) {
 

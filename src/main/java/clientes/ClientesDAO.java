@@ -17,7 +17,7 @@ public class ClientesDAO {
     public boolean insertclient(ClientesDTO clients){
         boolean result = false;
         try{
-            String query = "insert into clientes values(?,?,?,?,?)";
+            String query = "insert into Clientes values(?,?,?,?,?)";
             statement = con.prepareStatement(query);
             statement.setInt(1,clients.getCedula());
             statement.setString(2, clients.getAdress());
@@ -34,7 +34,7 @@ public class ClientesDAO {
     public ClientesDTO searchCliente(int cedula) {
         ClientesDTO cliente = null;
         try {
-            String query = "select * from clientes where cedula_cliente=?";
+            String query = "select * from Clientes where cedula_cliente=?";
             statement = con.prepareStatement(query);
             statement.setInt(1,cedula);
             resultSet = statement.executeQuery();
@@ -54,7 +54,7 @@ public class ClientesDAO {
     public boolean updateClient(ClientesDTO clientsDTO) {
         boolean result = false;
         try{
-            String query = "update clientes set direcion_cliente=?, email_cliente=?, nombre_cliente=?," +
+            String query = "update Clientes set direcion_cliente=?, email_cliente=?, nombre_cliente=?," +
                     "telefono_clientes=? where cedula_cliente=?";
             statement = con.prepareStatement(query);
             statement.setString(1, clientsDTO.getAdress());
@@ -74,7 +74,7 @@ public class ClientesDAO {
     public boolean deleteclient(int cedula) {
         boolean result = false;
         try{
-            String query = "delete FROM clientes WHERE cedula_cliente=?";
+            String query = "delete FROM Clientes WHERE cedula_cliente=?";
             statement= con.prepareStatement(query);
             statement.setInt(1, cedula);
             result = statement.executeUpdate() > 0;

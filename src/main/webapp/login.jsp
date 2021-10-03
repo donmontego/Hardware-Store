@@ -57,6 +57,7 @@
                 />
                 <i class="fas fa-key icon"></i>
             </div>
+            <div><p class="error-message" style="color:red; font-size:12px;"><%=request.getAttribute("error") != null ? request.getAttribute("error") : ""%></p></div>
             <input type="submit" name="login-acc" value="Ingresar"/>
             <p class="recover-password">
                 <a href="https://www.google.com" class="recover-password"

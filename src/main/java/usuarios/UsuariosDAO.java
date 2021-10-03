@@ -17,7 +17,7 @@ public class UsuariosDAO {
     public boolean insertUser(UsuariosDTO usuario){
        boolean result = false;
        try{
-           String query = "insert into usuarios values(?,?,?,?,?)";
+           String query = "insert into Usuarios values(?,?,?,?,?)";
            statement = con.prepareStatement(query);
            statement.setInt(1,usuario.getCedula());
            statement.setString(2, usuario.getEmail());
@@ -35,7 +35,7 @@ public class UsuariosDAO {
     public UsuariosDTO searchUser(int cedula) {
         UsuariosDTO user = null;
         try {
-            String query = "select * from usuarios where cedula_usuario=?";
+            String query = "select * from Usuarios where cedula_usuario=?";
             statement = con.prepareStatement(query);
             statement.setInt(1,cedula);
             resultSet = statement.executeQuery();
@@ -54,7 +54,7 @@ public class UsuariosDAO {
     public boolean updateUser(UsuariosDTO usuariosDTO) {
         boolean result = false;
         try{
-            String query = "update usuarios set email_usuario=?, nombre_usuario=?, password=?," +
+            String query = "update Usuarios set email_usuario=?, nombre_usuario=?, password=?," +
                     "usuario=? where cedula_usuario=?";
             statement = con.prepareStatement(query);
             statement.setString(1, usuariosDTO.getEmail());
@@ -73,7 +73,7 @@ public class UsuariosDAO {
     public boolean deleteUser(int cedula) {
         boolean result = false;
         try{
-            String query = "delete FROM usuarios WHERE cedula_usuario=?";
+            String query = "delete FROM Usuarios WHERE cedula_usuario=?";
             statement= con.prepareStatement(query);
             statement.setInt(1, cedula);
             result = statement.executeUpdate() > 0;

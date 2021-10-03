@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Conexion {
-    private final String BD = "t_generica";
+    private final String BD = "T_Generica";
     private final String URL = "jdbc:mysql://localhost:3306/"+ BD;
     private final String USER = "root";
     private final String PASS = "";

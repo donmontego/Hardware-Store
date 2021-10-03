@@ -124,6 +124,11 @@ input[class="register-acc"]:hover {
     color: rgba(0, 0, 0, 0.5);
 }
 
+.error-message{
+    color: red;
+    font-size: 8px;
+}
+
 @media only screen and (max-width: 600px) {
     .login-box {
         max-width: 380px;
