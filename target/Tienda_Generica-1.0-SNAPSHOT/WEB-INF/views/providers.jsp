@@ -1,3 +1,4 @@
+<%@ page import="proveedores.ProveedoresDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -14,56 +15,26 @@
             type=""
             href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     />
-    <link href="css/main.css" rel="stylesheet"/>
+    <link href="../../css/main.css" rel="stylesheet"/>
 </head>
 <body>
-<%!
-        String  name = ""
-                ,
-                address = ""
-                ,
-                phone = ""
-                ,
-                city = ""
-                ,
-                nit = "";
 
-%>
-<%
-    if (request.getParameter("nit") != null) {
-        nit = request.getParameter("nit");
-        name = request.getParameter("name");
-        address = request.getParameter("address");
-        phone = request.getParameter("phone");
-        city = request.getParameter("city");
-    }
-
-    if (request.getParameter("msg") != null) {
-        nit = "";
-        name = "";
-        address = "";
-        phone = "";
-        city = "";
-        String msg = request.getParameter("msg");
-        out.print("<script type='text/javascript'>alert('" + msg + "')</script>");
-    }
-%>
-<jsp:include page="partials/navbar.jsp"/>
+<jsp:include page="../partials/navbar.jsp"/>
 <div class="main-container">
     <div class="form-box">
         <p>Gestion de Proveedores</p>
         <form action="Proveedores" method="post">
             <div class="form-info">
                 <label for="nit">NIT</label>
-                <input type="text" id="nit" name="nit" value="<%=nit%>"/>
+                <input type="text" id="nit" name="nit" value="<%=request.getAttribute("PROVIDER") != null ? ((ProveedoresDTO) request.getAttribute("PROVIDER")).getNit() : ""%>"/>
                 <label for="name">Nombre Proveedor</label>
-                <input type="text" id="name" name="name" value="<%=name%>"/>
+                <input type="text" id="name" name="name" value="<%=request.getAttribute("PROVIDER") != null ? ((ProveedoresDTO) request.getAttribute("PROVIDER")).getName() : ""%>"/>
                 <label for="address">Dirección</label>
-                <input type="text" id="address" name="address" value="<%=address%>"/>
+                <input type="text" id="address" name="address" value="<%=request.getAttribute("PROVIDER") != null ? ((ProveedoresDTO) request.getAttribute("PROVIDER")).getAddress() : ""%>"/>
                 <label for="phone">Teléfono</label>
-                <input type="text" id="phone" name="phone" value="<%=phone%>"/>
+                <input type="text" id="phone" name="phone" value="<%=request.getAttribute("PROVIDER") != null ? ((ProveedoresDTO) request.getAttribute("PROVIDER")).getPhone() : ""%>"/>
                 <label for="city">Ciudad</label>
-                <input type="text" id="city" name="city" value="<%=city%>"/>
+                <input type="text" id="city" name="city" value="<%=request.getAttribute("PROVIDER") != null ? ((ProveedoresDTO) request.getAttribute("PROVIDER")).getCity() : ""%>"/>
             </div>
             <div class="form-buttons">
                 <button type="submit" name="search">Consultar</button>
@@ -71,11 +42,12 @@
                 <button type="submit" name="update">Actualizar</button>
                 <button type="submit" name="delete">Borrar</button>
             </div>
+            <p style="margin:0; padding:0;" class="<%=request.getAttribute("RESULT") != null ? request.getAttribute("RESULT") : ""%>"><%=request.getAttribute("MESSAGE") != null ? request.getAttribute("MESSAGE") : ""%></p>
         </form>
     </div>
     <div
             class="img-container"
-            style="background-image: url('images/providers.jpg')"
+            style="background-image: url('../../images/providers.jpg')"
     >
     </div>
 </div>

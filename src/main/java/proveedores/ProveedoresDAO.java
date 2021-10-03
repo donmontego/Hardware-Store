@@ -18,7 +18,7 @@ public class ProveedoresDAO {
        ProveedoresDTO proveedor = null;
 
        try{
-           String query = "select * from proveedores where nitproveedor=?";
+           String query = "select * from Proveedores where nitproveedor=?";
            statement = con.prepareStatement(query);
            statement.setString(1,nit);
            resultSet = statement.executeQuery();
@@ -39,7 +39,7 @@ public class ProveedoresDAO {
     public boolean insertProvider(ProveedoresDTO prveedor){
         boolean result = false;
         try {
-            String query = "insert into proveedores values(?,?,?,?,?)";
+            String query = "insert into Proveedores values(?,?,?,?,?)";
             statement = con.prepareStatement(query);
             statement.setString(1,prveedor.getNit());
             statement.setString(2,prveedor.getCity());
@@ -56,7 +56,7 @@ public class ProveedoresDAO {
     public boolean updateProvider(ProveedoresDTO proveedor) {
         boolean result = false;
         try{
-            String query = "update proveedores set ciudad_proveedor=?, direccion_proveedor=?, nombre_proveedor=?, telefono_proveedor=? where nitproveedor=?";
+            String query = "update Proveedores set ciudad_proveedor=?, direccion_proveedor=?, nombre_proveedor=?, telefono_proveedor=? where nitproveedor=?";
             statement = con.prepareStatement(query);
             statement.setString(1, proveedor.getCity());
             statement.setString(2, proveedor.getAddress());
@@ -73,7 +73,7 @@ public class ProveedoresDAO {
     public boolean deleteProvider(String nit) {
         boolean result = false;
         try {
-            String query = "delete from proveedores where nitproveedor=?";
+            String query = "delete from Proveedores where nitproveedor=?";
             statement = con.prepareStatement(query);
             statement.setString(1,nit);
             result = statement.executeUpdate() > 0;

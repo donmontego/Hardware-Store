@@ -1,3 +1,4 @@
+<%@ page import="productos.ProductosDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -17,68 +18,24 @@
     <link href="css/main.css" rel="stylesheet"/>
 </head>
 <body>
-<%!
-
-int codigo_producto;
-
-double  iva_compra
-        ,
-
-        precio_compra
-        ,
-
-        precio_venta;
-
-
-String
-        nit_proveedor = ""
-        ,
-        nombre_producto = "",
-
-        estado = "";
-
-%>
-<%
-    if (request.getParameter("codigo_producto") != null) {
-        codigo_producto = Integer.parseInt(request.getParameter("codigo_producto"));
-        iva_compra = Double.parseDouble(request.getParameter("iva_compra"));
-        precio_compra = Double.parseDouble(request.getParameter("precio_compra"));
-        precio_venta = Double.parseDouble(request.getParameter("precio_venta"));
-        nit_proveedor = request.getParameter("nit_proveedor");
-        nombre_producto = request.getParameter("nombre_producto");
-        estado = "Disabled";
-    }
-
-    if (request.getParameter("msg") != null) {
-        codigo_producto = 0;
-        iva_compra = 0;
-        precio_compra = 0; // MOD en pantalla
-        precio_venta = 0;   //  MOD en pantalla
-        nit_proveedor = "";
-        nombre_producto = "";   // MOD en pantalla
-        estado = "";
-        String msg = request.getParameter("msg");
-        out.print("<script type='text/javascript'>alert('" + msg + "')</script>");
-    }
-%>
-<jsp:include page="partials/navbar.jsp"/>
+<jsp:include page="../partials/navbar.jsp"/>
 <div class="main-container">
     <div class="form-box">
         <p>Gestion de Productos</p>
         <form action="Productos" method="post" enctype="multipart/form-data">
             <div class="form-info">
                 <label for="codigo_producto">Codigo de Producto</label>
-                <input type="number" id="codigo_producto" name="codigo_producto" value="<%=codigo_producto%>"/>
+                <input type="number" id="codigo_producto" name="codigo_producto" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getCodigo_producto() : ""%>"/>
                 <label for="iva_compra">IVA Compra</label>
-                <input type="number" id="iva_compra" name="iva_compra" value="<%=iva_compra%>" <%=estado%>/>
+                <input type="number" id="iva_compra" name="iva_compra" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getIva_compra() : ""%>" />
                 <label for="nit_proveedor">NIT Proveedor</label>
-                <input type="text" id="nit_proveedor" name="nit_proveedor" value="<%=nit_proveedor%>" <%=estado%>/>
+                <input type="text" id="nit_proveedor" name="nit_proveedor" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getNit_proveedor() : ""%>" />
                 <label for="nombre_producto">Nombre de Producto</label>
-                <input type="text" id="nombre_producto" name="nombre_producto" value="<%=nombre_producto%>"/>
+                <input type="text" id="nombre_producto" name="nombre_producto" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getNombre_producto() : ""%>"/>
                 <label for="precio_compra">Precio de Compra</label>
-                <input type="number" id="precio_compra" name="precio_compra" value="<%=precio_compra%>" <%=estado%>/>
+                <input type="number" id="precio_compra" name="precio_compra" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getPrecio_compra() : ""%>" />
                 <label for="precio_venta">Precio de Venta</label>
-                <input type="number" id="precio_venta" name="precio_venta" value="<%=precio_venta%>"/>
+                <input type="number" id="precio_venta" name="precio_venta" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getPrecio_venta() : ""%>"/>
             </div>
             <div class="form-buttons">
                 <button type="submit" name="search">Consultar</button>
@@ -94,6 +51,7 @@ String
                        <button type="submit" name="upload" value="cargar archivo">Cargar</button>
                         <!-- <input type="submit" name="upload" value="cargar archivo"> -->
                     </div>
+                    <p style="margin:0; padding:0;" class="<%=request.getAttribute("RESULT") != null ? request.getAttribute("RESULT") : ""%>"><%=request.getAttribute("MESSAGE") != null ? request.getAttribute("MESSAGE") : ""%></p>
                 </form>
             </div>
         </form>

@@ -20,7 +20,7 @@ public class ProductosDAO {
         ProductosDTO producto =  null;
 
         try {
-            String query = "Select * from productos where codigo_producto = ?";
+            String query = "Select * from Productos where codigo_producto = ?";
             statement = con.prepareStatement(query);
             statement.setInt(1, codigo_producto);
             resultSet = statement.executeQuery();
@@ -45,7 +45,7 @@ public class ProductosDAO {
         boolean result = false;
 
         try {
-            String query = "update productos set nombre_producto = ?," +
+            String query = "update Productos set nombre_producto = ?," +
                     "precio_venta = ? where codigo_producto = ?";
             statement = con.prepareStatement(query);
             statement.setString(1, producto.getNombre_producto());
@@ -64,7 +64,7 @@ public class ProductosDAO {
         boolean result = false;
 
         try {
-            String query1 = "DELETE FROM productos";
+            String query1 = "DELETE FROM Productos";
             statement = con.prepareStatement(query1);
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Borrado");
