@@ -1,12 +1,14 @@
 package productos;
 
 import Conexion.Conexion;
+import clientes.ClientesDTO;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ProductosDAO {
 
@@ -80,5 +82,26 @@ public class ProductosDAO {
         }
         return result;
     }
+    public ArrayList<ProductosDTO> cargarProductos() {
+        ProductosDTO producto = null;
+        ArrayList<ProductosDTO> listaProductos = new ArrayList<>();
 
+        try {
+            String query = "select * from Productos ";
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                producto = new ProductosDTO(Integer.parseInt(resultSet.getString(1)),
+                        Double.parseDouble(resultSet.getString(2)),
+                        Double.parseDouble(resultSet.getString(5)),
+                        Double.parseDouble(resultSet.getString(6)),
+                        resultSet.getString(3),
+                        resultSet.getString(4));
+                listaProductos.add(producto);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar clientes" + e);
+        }
+        return listaProductos;
+    }
 }
