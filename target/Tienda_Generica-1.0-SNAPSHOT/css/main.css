@@ -67,6 +67,7 @@ form {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+    justify-content: left;
     /* grid-template-rows: 1fr 1fr 1fr; */
     /* grid-template-columns: 0.7fr 1fr 0.5fr 1fr; */
     margin: 10px;
@@ -126,6 +127,17 @@ button {
 button:hover {
     background-color: white;
     color: black;
+}
+
+.client-select{
+    width: 100%;
+    padding: 7px;
+    font-size: 15px;
+    border: 1px solid black;
+}
+.client-name{
+    margin-left: 6px;
+    font-size: 15px;
 }
 
 .products-cart {
@@ -244,6 +256,7 @@ td input {
     height: 40%;
     margin-top: 6%;
     outline: none;
+    text-align: center;
 }
 
 .totals-box .lb {
@@ -257,6 +270,9 @@ td input {
     width: 90%;
     grid-row-start: 3;
     border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .totals-box button {

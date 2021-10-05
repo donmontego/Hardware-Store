@@ -1,3 +1,4 @@
+<%@ page import="ventas.VentasDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -27,27 +28,31 @@
 <div class="main-container">
     <div class="form-box">
         <p>Gestión de Ventas</p>
-        <form action="" method="">
+        <form >
             <div class="form-info">
                 <label for="listaClientes">Cédula Cliente</label>
-                <select name="cedula" id="listaClientes" placeholder="cédula"></select>
+                    <select name="cedula" id="listaClientes" class="client-select">
+                        <option selected hidden style="color:gray;">Seleccione la cédula</option>
+                    </select>
 <%--                <input type="number" id="cedula" name="cedula" value="" />--%>
                 <label for="name">Nombre Cliente</label>
 <%--                <span id="name" name="name" value=""></span>--%>
-                <input type="text" id="name" name="name" value="" />
+                <input type="text" id="name" name="name" value="" readonly class="client-name"/>
             </div>
             <div class="products-cart">
                 <table id="tproducts">
                     <tbody>
                     <tr>
 <%--                        <td><input type="text" placeholder="código" /></td>--%>
-                        <td><select name="" id="cod-prod" placeholder="Código"></select></td>
-                        <td><input type="text" placeholder="nombre producto" /></td>
+                        <td><select name="" id="cod-prod" class="cod-prod">
+                            <option selected hidden style="color:gray;">Código</option>
+                        </select></td>
+                        <td><input type="text" placeholder="nombre producto" class="name-prod" readonly /></td>
                         <td>
-                            <input type="number" placeholder="cant." />
+                            <input type="number" placeholder="cant." class="cant-prod"/>
                         </td>
                         <td>
-                            <input type="number" placeholder="vlr. total" />
+                            <input type="number" placeholder="vlr. total" class="total-prod" readonly />
                         </td>
                         <td>
                             <button type="button" class="delete-row">
@@ -71,16 +76,18 @@
                             placeholder="consec."
                             readonly
                             class="val"
+                            id="consec"
                     />
                 </div>
                 <label class="vlr lb">Valor Total</label>
                 <label class="iva lb">Valor IVA</label>
                 <label class="total lb">Total</label>
-                <div class="vlr div"></div>
-                <div class="iva div"></div>
-                <div class="total div"></div>
-                <button type="submit" name="delete">Generar</button>
+                <div id="vlr" class="vlr div"></div>
+                <div id="iva" class="iva div"></div>
+                <div id="total" class="total div"></div>
+                <button type="button" name="generate" id="generate">Generar</button>
             </div>
+            <p id="result-msg" style="margin:0; padding:0;" ></p>
         </form>
     </div>
     <div

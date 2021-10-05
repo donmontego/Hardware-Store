@@ -57,3 +57,13 @@ valoriva double,
 foreign key (codigo_producto) references Productos (codigo_producto),
 foreign key (codigo_venta) references Ventas (codigo_venta)
 )
+
+create trigger t_fill_ventas
+    after insert
+    on
+    detalle_venta
+    for each row
+    update Ventas set total_venta=total_venta + NEW.valor_total,
+                      ivaventa=ivaventa+(NEW.valor_total*(NEW.valoriva/100)),
+                      valor_venta=valor_venta+NEW.valor_total+(NEW.valor_total*(NEW.valoriva/100))
+    where codigo_venta = NEW.codigo_venta;

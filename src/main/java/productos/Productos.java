@@ -80,6 +80,7 @@ public class Productos extends SessionChecker {
         if (request.getParameter("upload")!=null) {
             Part archivo = request.getPart("archivo");
             String URL = "D:/Programacion Web/Proyecto Ciclo 3/Hardware-Store/src/main/webapp/documents/";
+//            String URL = "C:/users/user/IdeaProjects/demo/Hardware-Store/src/main/webapp/documents/";
 
             if(archivo.getContentType().equals("application/vnd.ms-excel")) {
                 try {
