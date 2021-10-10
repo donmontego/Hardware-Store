@@ -16,13 +16,18 @@
             href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     />
     <link href="css/main.css" rel="stylesheet"/>
+    <link href="../../popup/style.css" rel="stylesheet"/>
+    <script type="text/javascript">
+        var success = '<%= request.getAttribute("RESULT") %>';
+        var msg = '<%= request.getAttribute("MESSAGE") %>';
+    </script>
 </head>
 <body>
 <jsp:include page="../partials/navbar.jsp"/>
 <div class="main-container">
     <div class="form-box">
         <p>Gestion de Productos</p>
-        <form action="Productos" method="post" enctype="multipart/form-data">
+        <form action="Productos" method="post" enctype="multipart/form-data" id="main-form">
             <div class="form-info">
                 <label for="codigo_producto">Codigo de Producto</label>
                 <input type="number" id="codigo_producto" name="codigo_producto" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getCodigo_producto() : ""%>"/>
@@ -38,8 +43,8 @@
                 <input type="number" id="precio_venta" name="precio_venta" value="<%=request.getAttribute("PRODUCT") != null ? ((ProductosDTO) request.getAttribute("PRODUCT")).getPrecio_venta() : ""%>"/>
             </div>
             <div class="form-buttons">
-                <button type="submit" name="search">Consultar</button>
-                <button type="submit" name="update">Actualizar</button>
+                <button type="button" name="search" id="search">Consultar</button>
+                <button type="button" name="update" id="update">Actualizar</button>
             </div>
             <div>
                 <form action="Productos" method="post">
@@ -51,16 +56,19 @@
                        <button type="submit" name="upload" value="cargar archivo">Cargar</button>
                         <!-- <input type="submit" name="upload" value="cargar archivo"> -->
                     </div>
-                    <p style="margin:0; padding:0;" class="<%=request.getAttribute("RESULT") != null ? request.getAttribute("RESULT") : ""%>"><%=request.getAttribute("MESSAGE") != null ? request.getAttribute("MESSAGE") : ""%></p>
+<%--                    <p style="margin:0; padding:0;" class="<%=request.getAttribute("RESULT") != null ? request.getAttribute("RESULT") : ""%>"><%=request.getAttribute("MESSAGE") != null ? request.getAttribute("MESSAGE") : ""%></p>--%>
                 </form>
             </div>
         </form>
     </div>
     <div
             class="img-container"
-            style="background-image: url('images/products.jpg')"
+            style="background-image: url('../../images/products.jpg')"
     >
     </div>
 </div>
+<script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
+<script src="../../popup/popup.js"></script>
+<script type="text/javascript" src="../../js/alerts.js"></script>
 </body>
 </html>

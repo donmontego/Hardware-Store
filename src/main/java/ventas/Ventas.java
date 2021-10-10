@@ -7,8 +7,11 @@ import com.google.gson.reflect.TypeToken;
 import productos.ProductosDAO;
 import productos.ProductosDTO;
 import usuarios.UsuariosDTO;
+import utils.Result;
 import utils.SessionChecker;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -91,14 +94,36 @@ public class Ventas extends SessionChecker {
                 VentasDTO ventaTotal = ventasDAO.searchVenta(codigoVenta);
                 System.out.println(ventaTotal);
 
-                ArrayList<String> answerList = new ArrayList<>();
-                answerList.add("success-msg");
-                answerList.add("Venta registrada satisfactoriamente con el consecutivo "+String.valueOf(codigoVenta));
-                answerList.add(String.valueOf(codigoVenta));
-                answerList.add(String.valueOf(ventaTotal.getTotalVenta()));
-                answerList.add(String.valueOf(ventaTotal.getIvaVenta()));
-                answerList.add(String.valueOf(ventaTotal.getValorVenta()));
+                Result result = new Result(true, "Venta registrada satisfactoriamente con el consecutivo " + String.valueOf(codigoVenta));
+                Object[] answerList = new Object[2];
+                answerList[0] = result;
+                answerList[1] = ventaTotal;
 
+
+//                ArrayList<String> answerList = new ArrayList<>();
+//                answerList.add("success");
+//                answerList.add("Venta registrada satisfactoriamente con el consecutivo " + String.valueOf(codigoVenta));
+//                answerList.add(String.valueOf(codigoVenta));
+//                answerList.add(String.valueOf(ventaTotal.getTotalVenta()));
+//                answerList.add(String.valueOf(ventaTotal.getIvaVenta()));
+//                answerList.add(String.valueOf(ventaTotal.getValorVenta()));
+
+//                interface AnswerList {
+//                }
+//
+//                AnswerList answer = new AnswerList() {
+//                    String success = "true";
+//                    String message = "Venta registrada satisfactoriamente con el consecutivo " + String.valueOf(ventaTotal.getCodigoVenta());
+//                    int codigoVenta = ventaTotal.getCodigoVenta();
+//                    double totalVenta = ventaTotal.getTotalVenta();
+//                    double ivaVenta = ventaTotal.getIvaVenta();
+//                    double valorVenta = ventaTotal.getValorVenta();
+//                };
+//                Type answerType = new TypeToken<AnswerList>(){}.getType();
+
+//                System.out.println(answer);
+//                System.out.println(gson.toJson(answer,answerType));
+//                out.println(jsonAnswerList.toString());
                 out.println(gson.toJson(answerList));
 
 //                request.setAttribute("VENTA", ventaTotal);
@@ -111,3 +136,4 @@ public class Ventas extends SessionChecker {
         }
     }
 }
+

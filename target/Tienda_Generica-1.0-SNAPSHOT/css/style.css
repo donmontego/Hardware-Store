@@ -1,5 +1,6 @@
 body {
     background-color: #979DAC;
+    /*background-color: white;*/
     font-family: "Ubuntu", sans-serif;
 }
 
@@ -15,7 +16,8 @@ body {
 
 .login-box {
     max-width: 380px;
-    border: 1px solid #001233;
+    border : none;
+    /*border: 1px solid #001233;*/
     background-color: white;
     border-radius: 15px;
     padding: 12px 20px;
