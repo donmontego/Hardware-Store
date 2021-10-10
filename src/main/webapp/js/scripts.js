@@ -104,26 +104,56 @@ $('#generate').click(function () {
     var clienteCedula = $('#listaClientes').children(':selected').text();
     console.log(clienteCedula)
 
-    $.ajax({
-        type: "POST",
-        url: "Ventas",
-        dataType: "json",
-        data: {
-            option: "generate",
-            productos: JSON.stringify(productsTable),
-            clienteCedula: clienteCedula
-        },
-        success: function (data) {
-            console.log(data)
-            // console.log(typeof(data))
-            $('#consec').val(data[2])
-            $('#vlr').text(data[3])
-            $('#iva').text(data[4])
-            $('#total').text(data[5])
-            $('#result-msg').addClass(data[0])
-            $('#result-msg').text(data[1])
+    popup({
+        type: "question",
+        title: "Registrar venta",
+        message: "¿Desea registar la venta?",
+        confirmText: "Registrar",
+        cancelText: "Cancelar",
+    }).then((e) => {
+        if (e == "confirm") {
+            $.ajax({
+                type: "POST",
+                url: "Ventas",
+                dataType: "json",
+                data: {
+                    option: "generate",
+                    productos: JSON.stringify(productsTable),
+                    clienteCedula: clienteCedula
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data[0].success === true) {
+                        popupAlert({
+                            type: "success",
+                            message: data[0].message,
+                            timer: 3000,
+                        })
+                        $('#consec').val(data[1].codigoVenta)
+                        $('#vlr').text("$ " + data[1].totalVenta)
+                        $('#iva').text("$ " + data[1].ivaVenta)
+                        $('#total').text("$ " + data[1].valorVenta)
+                        $('#generate').hide()
+                        $('#clean').show()
+                        $('#sales-form :input:not(#clean)').prop('disabled', true)
+                        $('#sales-form button:not(#clean)').hide()
+
+                    } else {
+                        popupAlert({
+                            type: "error",
+                            message: data[1],
+                        })
+                    }
+                }
+            })
 
         }
+
     })
 });
+
+$('#clean').click(function () {
+    $('#generate').show()
+    $('#clean').hide()
+})
 

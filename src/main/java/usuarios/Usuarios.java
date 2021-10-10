@@ -18,7 +18,7 @@ public class Usuarios extends SessionChecker {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        validate(request,response);
+        validate(request, response);
 
         UsuariosDAO usuariosDAO = new UsuariosDAO();
 
@@ -35,32 +35,32 @@ public class Usuarios extends SessionChecker {
 
             UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, hashedPassword, name, email);
             if (usuariosDAO.insertUser(usuariosDTO)) {
-                request.setAttribute("RESULT","success-msg");
-                request.setAttribute("MESSAGE","Usuario agregado con éxito.");
-            } else{
-                request.setAttribute("RESULT","error-msg");
-                request.setAttribute("MESSAGE","Error al crear el usuario.");
+                request.setAttribute("RESULT", "success-msg");
+                request.setAttribute("MESSAGE", "Usuario agregado con éxito.");
+            } else {
+                request.setAttribute("RESULT", "error-msg");
+                request.setAttribute("MESSAGE", "Error al crear el usuario.");
             }
             request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
         }
 
-        if (request.getParameter("search")!=null) {
+        if (request.getParameter("search") != null) {
             int cedula;
             cedula = Integer.parseInt(request.getParameter("cedula"));
             UsuariosDTO usuario = usuariosDAO.searchUser(cedula);
             if (usuario != null) {
-                request.setAttribute("USER",usuario);
+                request.setAttribute("USER", usuario);
 
             } else {
-                request.setAttribute("RESULT","error-msg");
-                request.setAttribute("MESSAGE","Usuario no encontrado");
+                request.setAttribute("RESULT", "error-msg");
+                request.setAttribute("MESSAGE", "Usuario no encontrado");
             }
             request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
 
         }
-        if (request.getParameter("update") !=null){
+        if (request.getParameter("update") != null) {
             int cedula;
-            String email, name,password,user, hashedPassword;
+            String email, name, password, user, hashedPassword;
             cedula = Integer.parseInt(request.getParameter("cedula"));
             email = request.getParameter("email");
             name = request.getParameter("name");
@@ -70,28 +70,28 @@ public class Usuarios extends SessionChecker {
 
             UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, hashedPassword, name, email);
             if (usuariosDAO.updateUser(usuariosDTO)) {
-                request.setAttribute("RESULT","success-msg");
-                request.setAttribute("MESSAGE","Usuario modificado con éxito.");
+                request.setAttribute("RESULT", "success-msg");
+                request.setAttribute("MESSAGE", "Usuario modificado con éxito.");
             } else {
-                request.setAttribute("RESULT","error-msg");
-                request.setAttribute("MESSAGE","Error al modificar el usuario.");
+                request.setAttribute("RESULT", "error-msg");
+                request.setAttribute("MESSAGE", "Error al modificar el usuario.");
             }
             request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
 
         }
-        if (request.getParameter("delete")!=null){
+        if (request.getParameter("delete") != null) {
             int cedula;
             cedula = Integer.parseInt(request.getParameter("cedula"));
-            int accept = JOptionPane.showInternalConfirmDialog(null,"¿Eliminar cliente con cedula: ?"+cedula);
-            if (accept == 0){
-                if (usuariosDAO.deleteUser(cedula)){
-                    request.setAttribute("RESULT","success-msg");
-                    request.setAttribute("MESSAGE","Usuario eliminado.");
-                } else {
-                    request.setAttribute("RESULT","error-msg");
-                    request.setAttribute("MESSAGE","Error al eliminar el usuario.");
-                }
+//            int accept = JOptionPane.showInternalConfirmDialog(null,"¿Eliminar cliente con cedula: ?"+cedula);
+//            if (accept == 0){
+            if (usuariosDAO.deleteUser(cedula)) {
+                request.setAttribute("RESULT", "success-msg");
+                request.setAttribute("MESSAGE", "Usuario eliminado.");
+            } else {
+                request.setAttribute("RESULT", "error-msg");
+                request.setAttribute("MESSAGE", "Error al eliminar el usuario.");
             }
+//            }
             request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
         }
     }

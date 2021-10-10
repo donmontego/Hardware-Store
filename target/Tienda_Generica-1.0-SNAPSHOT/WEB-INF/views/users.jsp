@@ -1,10 +1,4 @@
-<%@ page import="usuarios.UsuariosDTO" %><%--
-  Created by IntelliJ IDEA.
-  User: User
-  Date: 9/12/2021
-  Time: 5:39 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="usuarios.UsuariosDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -22,6 +16,11 @@
             href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     />
     <link href="../../css/main.css" rel="stylesheet"/>
+    <link href="../../popup/style.css" rel="stylesheet"/>
+    <script type="text/javascript">
+        var success = '<%= request.getAttribute("RESULT") %>';
+        var msg = '<%= request.getAttribute("MESSAGE") %>';
+    </script>
 </head>
 <body>
 
@@ -29,7 +28,7 @@
 <div class="main-container">
     <div class="form-box">
         <p>Gestion de Usuarios</p>
-        <form action="Usuarios" method="post">
+        <form action="Usuarios" method="post" id="main-form">
             <div class="form-info">
                 <label for="cedula">Cédula</label>
                 <input type="number" id="cedula" name="cedula" value="<%=request.getAttribute("USER") != null ? ((UsuariosDTO) request.getAttribute("USER")).getCedula() : ""%>"/>
@@ -43,12 +42,12 @@
                 <input type="text" id="user" name="user" value="<%=request.getAttribute("USER") != null ? ((UsuariosDTO) request.getAttribute("USER")).getUser() : ""%>"/>
             </div>
             <div class="form-buttons">
-                <button type="submit" name="search">Consultar</button>
-                <button type="submit" name="create">Crear</button>
-                <button type="submit" name="update">Actualizar</button>
-                <button type="submit" name="delete">Borrar</button>
+                <button type="button" name="search" id="search">Consultar</button>
+                <button type="button" name="create" id="create">Crear</button>
+                <button type="button" name="update" id="update">Actualizar</button>
+                <button type="button" name="delete" id="delete">Borrar</button>
             </div>
-            <p style="margin:0; padding:0;" class="<%=request.getAttribute("RESULT") != null ? request.getAttribute("RESULT") : ""%>"><%=request.getAttribute("MESSAGE") != null ? request.getAttribute("MESSAGE") : ""%></p>
+<%--            <p style="margin:0; padding:0;" class="<%=request.getAttribute("RESULT") != null ? request.getAttribute("RESULT") : ""%>"><%=request.getAttribute("MESSAGE") != null ? request.getAttribute("MESSAGE") : ""%></p>--%>
         </form>
     </div>
     <div
@@ -57,5 +56,8 @@
     >
     </div>
 </div>
+<script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
+<script src="../../popup/popup.js"></script>
+<script type="text/javascript" src="../../js/alerts.js"></script>
 </body>
 </html>

@@ -66,18 +66,20 @@ public class ProductosDAO {
         boolean result = false;
 
         try {
-            String query1 = "DELETE FROM Productos";
-            statement = con.prepareStatement(query1);
-            statement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Borrado");
+//            String query1 = "DELETE FROM Productos";
+//            statement = con.prepareStatement(query1);
+//            statement.executeUpdate();
+//            JOptionPane.showMessageDialog(null, "Borrado");
 
-            String query = "load data infile '"+URL+"' into table productos fields terminated by ','" +
-                    " lines terminated by '\r\n'";
+            String query = "load data infile '"+URL+"' replace into table productos fields terminated by ','" +
+                    " lines terminated by '\\n'";
+            System.out.println(query);
 
             statement = con.prepareStatement(query);
             result = statement.executeUpdate() > 0;
 
         }catch(SQLException ex) {
+            System.out.println("productosDAO"+ex);
             JOptionPane.showMessageDialog(null,"Error al registrar los productos: "+ ex);
         }
         return result;
