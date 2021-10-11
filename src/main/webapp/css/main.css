@@ -46,9 +46,9 @@ body {
     display: block;
 }
 .img-container{
-    /* width: 50%; */
+    /*
     background-color: #0466c8;
-    /* background-image: url('../images/users.jpg');  */
+    */
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -279,12 +279,89 @@ td input {
     grid-row-start: 4;
 }
 
+.button-box {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 60%;
+    gap: 10%;
+}
+
+.button-box .btn-report {
+    width: auto;
+}
+
+.button-box i {
+    font-size: 10em;
+}
+
+.button-box .btn-report:hover {
+    color: #33415c;
+}
+
+.lb-list {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: 1.2em;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #33415c;
+}
+
+.tb-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+#tb-report {
+    width: 60%;
+    border: solid 1px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-collapse: collapse;
+
+
+}
+
+#tb-report th {
+    padding: 10px;
+    border-bottom: solid 1px;
+    text-align: justify;
+    background-color: #001233;
+    color: white;
+}
+
+#tb-report td {
+    padding: 3px;
+    text-align: justify;
+}
+
+#tb-report tr:hover {
+    background-color: #0466c8;
+    color: white;
+}
+
+#valorFinal-box {
+    display: flex;
+    gap: 10px;
+    width: 45%;
+    justify-content: right;
+    margin-top: 10px;
+}
+
+#tituloReporte {
+    color: #001233;
+}
+
 @media only screen and (max-width: 600px) {
 
     .main-container{
         min-height: 750px;
         flex-direction: column;
     }
+
 
     .form-box{
         margin: 0;

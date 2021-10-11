@@ -61,7 +61,16 @@
         salesTab = "selected";
         reportsTab = "";
 
-    } else{
+    } else if (request.getRequestURL().toString().contains("reports.jsp")) {
+    usersTab = "";
+    clientsTab = "";
+    providersTab = "";
+    productsTab = "";
+    salesTab = "";
+    reportsTab = "selected";
+
+    }
+    else{
     usersTab = "";
         clientsTab = "";
         providersTab = "";
@@ -91,7 +100,8 @@
                 </li>
                 <li class="<%=salesTab%>"><a href="<%=request.getContextPath()%>/Menu?sales" class="links">Ventas</a>
                 </li>
-                <li><a href="">Reportes</a></li>
+                <li class="<%=reportsTab%>"><a href="<%=request.getContextPath()%>/Menu?reports" class="links">Reportes</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -105,4 +105,30 @@ public class ClientesDAO {
         }
         return listaClientes;
     }
+
+    public ArrayList<ClientesDTO> allClients () {
+
+        ClientesDTO clientesDTO = null;
+        ArrayList<ClientesDTO> listaclientes = new ArrayList<>();
+
+        try {
+            String query = "select * FROM Clientes";
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                clientesDTO = new ClientesDTO();
+                clientesDTO.setCedula(resultSet.getInt(1));
+                clientesDTO.setEmail(resultSet.getString(3));
+                clientesDTO.setName(resultSet.getString(4));
+                clientesDTO.setAdress(resultSet.getString(2));
+                clientesDTO.setPhone(resultSet.getString(5));
+                listaclientes.add(clientesDTO);
+            }
+            System.out.println(listaclientes);
+        }catch (SQLException e) {
+            System.out.println(e);
+
+        }return listaclientes;
+    }
 }

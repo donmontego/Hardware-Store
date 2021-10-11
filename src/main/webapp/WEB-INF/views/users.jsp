@@ -52,7 +52,7 @@
     </div>
     <div
             class="img-container"
-            style="background-image: url('../../images/users.jpg')"
+            style="background-image: url('../../images/users2.jpg')"
     >
     </div>
 </div>
