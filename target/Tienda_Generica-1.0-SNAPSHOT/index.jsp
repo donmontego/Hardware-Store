@@ -5,7 +5,7 @@
     <title>Tienda Genérica</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "Hello World! hello hello" %>
 </h1>
 <br/>
 <a href="login.jsp">Login</a>

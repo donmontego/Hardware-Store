@@ -1,12 +1,11 @@
 package usuarios;
 
 import Conexion.Conexion;
+import clientes.ClientesDTO;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UsuariosDAO {
     Conexion conexion = new Conexion();
@@ -82,4 +81,30 @@ public class UsuariosDAO {
         }
         return result;
     }
+
+    public ArrayList<UsuariosDTO> allUsers () {
+
+        UsuariosDTO usuariosDTO = null;
+        ArrayList<UsuariosDTO> listaUsuarios = new ArrayList<>();
+
+        try {
+            String query = "select * FROM Usuarios";
+            statement = con.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                usuariosDTO = new UsuariosDTO();
+                usuariosDTO.setCedula(resultSet.getInt(1));
+                usuariosDTO.setEmail(resultSet.getString(2));
+                usuariosDTO.setName(resultSet.getString(3));
+                usuariosDTO.setUser(resultSet.getString(5));
+                listaUsuarios.add(usuariosDTO);
+            }
+            System.out.println(listaUsuarios);
+        }catch (SQLException e) {
+            System.out.println(e);
+
+        }return listaUsuarios;
+    }
+
 }
