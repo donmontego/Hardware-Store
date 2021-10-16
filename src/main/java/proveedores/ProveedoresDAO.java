@@ -3,10 +3,7 @@ package proveedores;
 import Conexion.Conexion;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ProveedoresDAO {
     Conexion conexion = new Conexion();
@@ -36,8 +33,8 @@ public class ProveedoresDAO {
        return proveedor;
     }
 
-    public boolean insertProvider(ProveedoresDTO prveedor){
-        boolean result = false;
+    public int insertProvider(ProveedoresDTO prveedor){
+        int result = 0;
         try {
             String query = "insert into Proveedores values(?,?,?,?,?)";
             statement = con.prepareStatement(query);
@@ -46,10 +43,15 @@ public class ProveedoresDAO {
             statement.setString(3,prveedor.getAddress());
             statement.setString(4,prveedor.getName());
             statement.setString(5,prveedor.getPhone());
-            result = statement.executeUpdate() > 0;
-        }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error"+e);
+            result = statement.executeUpdate() > 0 ? 0 : 1;
+        }catch (SQLIntegrityConstraintViolationException e){
+            result = 2;
+            System.out.println(e);
+        }catch (SQLException e) {
+            result = 1;
+            System.out.println(e);
         }
+        /*0 = OK - 1 = ERROR - 2 = KEY DUPLICADO*/
         return result;
     }
 

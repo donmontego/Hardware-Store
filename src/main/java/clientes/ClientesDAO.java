@@ -3,10 +3,7 @@ package clientes;
 import Conexion.Conexion;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ClientesDAO {
@@ -15,8 +12,8 @@ public class ClientesDAO {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
 
-    public boolean insertclient(ClientesDTO clients) {
-        boolean result = false;
+    public int insertclient(ClientesDTO clients) {
+        int result = 0;
         try {
             String query = "insert into Clientes values(?,?,?,?,?)";
             statement = con.prepareStatement(query);
@@ -25,11 +22,18 @@ public class ClientesDAO {
             statement.setString(3, clients.getEmail());
             statement.setString(4, clients.getName());
             statement.setString(5, clients.getPhone());
-            result = statement.executeUpdate() > 0;
+            result = statement.executeUpdate() > 0 ? 0 : 1;
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error" + e);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            result = 2;
+            System.out.println(e);
+
+        }catch (SQLException e) {
+            result = 1;
+            System.out.println(e);
+
         }
+        /*0 = OK - 1 = ERROR - 2 = KEY DUPLICADO*/
         return result;
     }
 

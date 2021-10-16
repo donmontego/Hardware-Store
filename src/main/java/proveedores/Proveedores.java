@@ -32,12 +32,16 @@ public class Proveedores extends SessionChecker {
             city = request.getParameter("city");
 
             ProveedoresDTO proveedor = new ProveedoresDTO(nit, name, address, phone, city);
-            if (proveedoresDAO.insertProvider(proveedor)) {
+            int resultado = proveedoresDAO.insertProvider(proveedor);
+            if (resultado == 0) {
                 request.setAttribute("RESULT","success-msg");
                 request.setAttribute("MESSAGE","Proveedor agregado con éxito.");
-            } else {
+            } else if (resultado == 2) {
                 request.setAttribute("RESULT","error-msg");
-                request.setAttribute("MESSAGE","Error al crear el proveedor.");
+                request.setAttribute("MESSAGE","NIT ya registrada.");
+            }else {
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Error al crear el proveedor, comuniquese con el administrador.");
             }
             request.getRequestDispatcher("WEB-INF/views/providers.jsp").forward(request, response);
         }

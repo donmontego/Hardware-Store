@@ -13,8 +13,8 @@ public class UsuariosDAO {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
 
-    public boolean insertUser(UsuariosDTO usuario){
-       boolean result = false;
+    public int insertUser(UsuariosDTO usuario){
+       int result = 0;
        try{
            String query = "insert into Usuarios values(?,?,?,?,?)";
            statement = con.prepareStatement(query);
@@ -23,11 +23,18 @@ public class UsuariosDAO {
            statement.setString(3, usuario.getName());
            statement.setString(4, usuario.getPassword());
            statement.setString(5, usuario.getUser());
-           result = statement.executeUpdate() > 0;
+           result = statement.executeUpdate() > 0? 0 : 1;
 
-       }catch(SQLException e){
-           JOptionPane.showMessageDialog(null, "Error"+e);
+       }catch (SQLIntegrityConstraintViolationException e) {
+           result = 2;
+           System.out.println(e);
        }
+
+       catch(SQLException e){
+           result = 1;
+           System.out.println(e);
+       }
+       /*0 = OK - 1 = ERROR - 2 = KEY DUPLICADO*/
        return result;
    }
 
