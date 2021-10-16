@@ -31,12 +31,16 @@ public class Clientes extends SessionChecker {
             phone = request.getParameter("phone");
 
             ClientesDTO clientsDTO = new ClientesDTO(cedula, address, email, name, phone);
-            if (clientsDAO.insertclient(clientsDTO)) {
+            int resultado = clientsDAO.insertclient(clientsDTO);
+            if (resultado == 0) {
                 request.setAttribute("RESULT","success-msg");
                 request.setAttribute("MESSAGE","Cliente agregado con éxito.");
-            } else {
+            } else if (resultado == 2) {
                 request.setAttribute("RESULT","error-msg");
-                request.setAttribute("MESSAGE","Error al crear el cliente.");
+                request.setAttribute("MESSAGE","Cedula ya registrada.");
+            }else {
+                request.setAttribute("RESULT","error-msg");
+                request.setAttribute("MESSAGE","Error al crear el cliente, comuniquese con el administrador.");
             }
             request.getRequestDispatcher("WEB-INF/views/clients.jsp").forward(request, response);
         }

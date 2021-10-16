@@ -34,12 +34,16 @@ public class Usuarios extends SessionChecker {
 
 
             UsuariosDTO usuariosDTO = new UsuariosDTO(cedula, user, hashedPassword, name, email);
-            if (usuariosDAO.insertUser(usuariosDTO)) {
+            int resultado =  usuariosDAO.insertUser(usuariosDTO);
+            if (resultado == 0) {
                 request.setAttribute("RESULT", "success-msg");
                 request.setAttribute("MESSAGE", "Usuario agregado con éxito.");
-            } else {
+            } else if (resultado == 2) {
                 request.setAttribute("RESULT", "error-msg");
-                request.setAttribute("MESSAGE", "Error al crear el usuario.");
+                request.setAttribute("MESSAGE", "Cedula ya registrada.");
+            }else {
+                request.setAttribute("RESULT", "error-msg");
+                request.setAttribute("MESSAGE", "Error al crear el usuario, comuniquese con el administrador.");
             }
             request.getRequestDispatcher("WEB-INF/views/users.jsp").forward(request, response);
         }

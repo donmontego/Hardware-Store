@@ -31,15 +31,20 @@
         <form action="Usuarios" method="post" id="main-form">
             <div class="form-info">
                 <label for="cedula">Cédula</label>
-                <input type="number" id="cedula" name="cedula" value="<%=request.getAttribute("USER") != null ? ((UsuariosDTO) request.getAttribute("USER")).getCedula() : ""%>"/>
+                <input type="number" id="cedula" name="cedula" value="<%=request.getAttribute("USER") != null ?
+                 ((UsuariosDTO) request.getAttribute("USER")).getCedula() : ""%>" required/>
                 <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" value="<%=request.getAttribute("USER") != null ? ((UsuariosDTO) request.getAttribute("USER")).getEmail() : ""%>"/>
+                <input type="email" id="email" name="email" value="<%=request.getAttribute("USER") != null ?
+                 ((UsuariosDTO) request.getAttribute("USER")).getEmail() : ""%>" required/>
                 <label for="name">Nombre Completo</label>
-                <input type="text" id="name" name="name" value="<%=request.getAttribute("USER") != null ? ((UsuariosDTO) request.getAttribute("USER")).getName() : ""%>"/>
+                <input type="text" id="name" name="name" value="<%=request.getAttribute("USER") != null ?
+                 ((UsuariosDTO) request.getAttribute("USER")).getName() : ""%>" required/>
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" value="<%=request.getAttribute("USER") != null ? ((UsuariosDTO) request.getAttribute("USER")).getPassword() : ""%>"/>
+                <input type="password" id="password" name="password" value="<%=request.getAttribute("USER") != null ?
+                 ((UsuariosDTO) request.getAttribute("USER")).getPassword() : ""%>" required/>
                 <label for="user">Usuario</label>
-                <input type="text" id="user" name="user" value="<%=request.getAttribute("USER") != null ? ((UsuariosDTO) request.getAttribute("USER")).getUser() : ""%>"/>
+                <input type="text" id="user" name="user" value="<%=request.getAttribute("USER") != null ?
+                 ((UsuariosDTO) request.getAttribute("USER")).getUser() : ""%>" required/>
             </div>
             <div class="form-buttons">
                 <button type="button" name="search" id="search">Consultar</button>
@@ -52,12 +57,15 @@
     </div>
     <div
             class="img-container"
-            style="background-image: url('../../images/users.jpg')"
+            style="background-image: url('../../images/users2.jpg')"
     >
     </div>
 </div>
 <script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
 <script src="../../popup/popup.js"></script>
+<%--
+<script type="text/javascript" src="../../js/validacion.js"></script>
+--%>
 <script type="text/javascript" src="../../js/alerts.js"></script>
 </body>
 </html>
